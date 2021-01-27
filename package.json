@@ -1,0 +1,29 @@
+{
+  "name": "events-app",
+  "version": "1.0.0",
+  "description": "Une application web à destination des musiciens et de l'événementiel Technologies : MERN stack (MongoDb, ExpressJs, ReactJs, NodeJs)",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.7",
+    "react-bootstrap": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "server": "cd server && nodemon index",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdutheil/events-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdutheil/events-app/issues"
+  },
+  "homepage": "https://github.com/jdutheil/events-app#readme"
+}
