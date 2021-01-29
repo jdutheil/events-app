@@ -17,10 +17,10 @@ const Artist = require('../../models/Artist')
 router.post(
   '/',
   [
-    check('email', 'Please include a valid email').isEmail(),
+    check('email', 'Merci de renseigner une adresse email valide').isEmail(),
     check(
       'password',
-      'Please enter a password with at least 8 characters'
+      "Merci d'utiliser un mot de passe avec 8 caractères minimum"
     ).isLength({ min: 8 }),
   ],
   async (req, res) => {
@@ -38,7 +38,14 @@ router.post(
       if (artist) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Artist already exists' }] })
+          .json({
+            errors: [
+              {
+                msg:
+                  'Cette adresse email est déjà utilisée - veuillez vous connecter',
+              },
+            ],
+          })
       }
 
       artist = new Artist({
@@ -73,7 +80,7 @@ router.post(
       )
     } catch (err) {
       console.error(err.message)
-      res.status(500).send('Server error')
+      res.status(500).send('Erreur serveur')
     }
   }
 )
@@ -84,8 +91,8 @@ router.post(
 router.post(
   '/auth',
   [
-    check('email', 'Please enter a valid email').isEmail(),
-    check('password', 'Password is required').exists(),
+    check('email', 'Merci de renseigner une adresse email correcte').isEmail(),
+    check('password', 'Le mot de passe est requis').exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req)
@@ -102,7 +109,11 @@ router.post(
       if (!artist) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials' }] })
+          .json({
+            errors: [
+              { msg: "L'adresse email ou le mot de passe est incorrect" },
+            ],
+          })
       }
 
       const isMatch = await bcrypt.compare(password, artist.password)
@@ -110,7 +121,11 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials' }] })
+          .json({
+            errors: [
+              { msg: "L'adresse email ou le mot de passe est incorrect" },
+            ],
+          })
       }
 
       const payload = {
@@ -130,7 +145,7 @@ router.post(
       )
     } catch (err) {
       console.error(err)
-      res.status(500).send('Server error')
+      res.status(500).send('Erreur serveur')
     }
   }
 )
@@ -144,7 +159,7 @@ router.get('/auth', artistAuth, async (req, res) => {
     res.json(artist)
   } catch (err) {
     console.error(err.message)
-    res.status(500).send('Server error')
+    res.status(500).send('Erreur serveur')
   }
 })
 
