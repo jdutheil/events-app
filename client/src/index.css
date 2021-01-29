@@ -1,0 +1,6 @@
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #313130;
+  padding-top: 70px; /* For fixed navbar */
+}

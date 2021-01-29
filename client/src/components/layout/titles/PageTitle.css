@@ -1,0 +1,12 @@
+.page-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .page-title {
+    font-size: 40px;
+  }
+}

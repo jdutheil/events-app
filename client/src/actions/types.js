@@ -1,0 +1,9 @@
+// Alerts
+
+export const SET_ALERT = 'SET_ALERT'
+export const REMOVE_ALERT = 'REMOVE_ALERT'
+export const EMPTY_ALERT = 'EMPTY_ALERT'
+
+// Auth - Register
+export const ARTIST_REGISTER_SUCCESS = 'ARTIST_REGISTER_SUCCESS'
+export const ARTIST_REGISTER_FAIL = 'ARTIST_REGISTER_FAIL'
