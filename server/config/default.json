@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb://localhost:27017/events",
-  "jwtSecret": "qfrtD7rJUSgEGXRL1urlKeD0qcGgVT0djpHKvPojpaBWGKrd0e2TusGXdXROxLM"
+  "jwtSecret": "qfrtD7rJUSgEGXRL1urlKeD0qcGgVT0djpHKvPojpaBWGKrd0e2TusGXdXROxLM",
+  "googleClientId": "1030942444379-5fhq8ovel2ve77oocfilocp2fn3covg9.apps.googleusercontent.com",
+  "googleClientSecret": "0LqJbEVx9QhpOK9RezBBcqwA"
 }

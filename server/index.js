@@ -1,5 +1,9 @@
 const express = require('express')
 const connectDB = require('./config/db')
+const bodyParser = require('body-parser')
+const passport = require('./passport/setup')
+const cors = require('cors')
+const session = require('express-session')
 
 const app = express()
 
@@ -8,6 +12,17 @@ connectDB()
 
 // Init Middleware
 app.use(express.json({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({ secret: 'session-secrets', cookie: { _expires: 120000 } }))
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
+)
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.get('/', (req, res) => {
   res.send('API running')

@@ -17,11 +17,11 @@ import Button from 'react-bootstrap/Button'
 
 import PageTitle from '../layout/titles/PageTitle'
 
-import { login } from '../../actions/auth'
+import { login, googleLogin } from '../../actions/auth'
 
 import { DASHBOARD_ROUTE } from '../../routes'
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, googleLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -36,6 +36,10 @@ const Login = ({ login, isAuthenticated }) => {
     e.preventDefault()
 
     login({ email, password })
+  }
+
+  const onGoogleBtnClick = () => {
+    googleLogin()
   }
 
   // Redirect if logged in
@@ -77,6 +81,10 @@ const Login = ({ login, isAuthenticated }) => {
               Connexion
             </Button>
           </Form>
+
+          <Button variant='outline-dark' onClick={() => onGoogleBtnClick()}>
+            Se connecter avec Google
+          </Button>
         </Col>
       </Row>
     </div>
@@ -85,6 +93,7 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  googleLogin: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 }
 
@@ -92,4 +101,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { login, googleLogin })(Login)

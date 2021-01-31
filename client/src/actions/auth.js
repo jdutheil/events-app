@@ -48,6 +48,24 @@ export const loadUser = () => async (dispatch) => {
   }
 }
 
+export const loadGoogleUser = () => async (dispatch) => {
+  localStorage.removeItem('googleLogin')
+
+  try {
+    const res = await axios.get('/api/auth/google/success')
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    })
+
+    dispatch(loadUser())
+    dispatch(setAlert('Vous êtes maintenant identifié', 'success', 5000))
+  } catch (err) {
+    console.log('loadGoogleUser error')
+  }
+}
+
 // Register artist user
 export const artistRegister = ({ email, password }) => async (dispatch) => {
   const config = {
@@ -130,4 +148,13 @@ export const login = ({ email, password }) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT })
   dispatch(setAlert('Vous êtes maintenant déconnecté', 'success', 5000))
+}
+
+export const googleLogin = () => async (dispatch) => {
+  try {
+    localStorage.setItem('googleLogin', true)
+    window.open('http://localhost:5000/api/auth/google', '_self')
+  } catch (err) {
+    manageAuthErrors(err, dispatch, LOGIN_FAIL)
+  }
 }

@@ -23,7 +23,7 @@ import Login from './components/auth/Login'
 import Dashboard from './components/dashboard/Dashboard'
 
 import setAuthToken from './utils/setAuthToken'
-import { loadUser } from './actions/auth'
+import { loadUser, loadGoogleUser } from './actions/auth'
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
@@ -31,7 +31,11 @@ if (localStorage.token) {
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser())
+    if (localStorage.googleLogin) {
+      store.dispatch(loadGoogleUser())
+    } else {
+      store.dispatch(loadUser())
+    }
   }, [])
 
   return (
