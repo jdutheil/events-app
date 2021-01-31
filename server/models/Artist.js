@@ -1,21 +1,16 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
+const User = require('./User')
+
+const options = { discriminatorKey: 'type' }
 
 const ArtistSchema = new mongoose.Schema({
-  email: {
+  firstname: {
     type: String,
-    required: true,
-    unique: true,
   },
 
-  password: {
+  lastname: {
     type: String,
-    required: true,
-  },
-
-  date: {
-    type: Date,
-    default: Date.now,
   },
 })
 
-module.exports = User = mongoose.model("artist", ArtistSchema)
+module.exports = Artist = User.discriminator('Artist', ArtistSchema, options)

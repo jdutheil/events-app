@@ -19,11 +19,15 @@ const Header = ({ title, logout, auth: { isAuthenticated, loading } }) => {
 
   const guestLinks = (
     <>
-      <Link to='/artist/register'>
+      <Link to='/entreprise/inscription'>
+        <Button variant='outline-dark'>Inscription entreprise</Button>
+      </Link>
+
+      <Link to='/artiste/inscription'>
         <Button variant='outline-dark'>Inscription artistes</Button>
       </Link>
 
-      <Link to='/login'>
+      <Link to='/connexion'>
         <Button variant='outline-primary'>Connexion</Button>
       </Link>
     </>

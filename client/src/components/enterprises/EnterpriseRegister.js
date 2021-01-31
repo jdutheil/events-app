@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { setAlert, emptyAlert } from '../../actions/alert'
-import { artistRegister } from '../../actions/auth'
+import { enterpriseRegister } from '../../actions/auth'
 
 import PageTitle from '../layout/titles/PageTitle'
 
@@ -17,10 +17,10 @@ import Col from 'react-bootstrap/Col'
 
 import { DASHBOARD_ROUTE, LOGIN_ROUTE } from '../../routes'
 
-const ArtistRegister = ({
+const EnterpriseRegister = ({
   setAlert,
   emptyAlert,
-  artistRegister,
+  enterpriseRegister,
   isAuthenticated,
 }) => {
   const [formData, setFormData] = useState({
@@ -42,7 +42,7 @@ const ArtistRegister = ({
     if (password !== passwordCheck) {
       setAlert('Les mots de passe ne sont pas identiques', 'danger')
     } else {
-      artistRegister({ email, password })
+      enterpriseRegister({ email, password })
     }
   }
 
@@ -52,7 +52,7 @@ const ArtistRegister = ({
 
   return (
     <div>
-      <PageTitle>Vous inscrire en tant qu'artiste</PageTitle>
+      <PageTitle>Vous inscrire en tant qu'entreprise</PageTitle>
 
       <Row>
         <Col md={{ span: 4, offset: 4 }} lg={{ span: 4, offset: 4 }}>
@@ -109,10 +109,10 @@ const ArtistRegister = ({
   )
 }
 
-ArtistRegister.propTypes = {
+EnterpriseRegister.propTypes = {
   setAlert: PropTypes.func.isRequired,
   emptyAlert: PropTypes.func.isRequired,
-  artistRegister: PropTypes.func.isRequired,
+  enterpriseRegister: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 }
 
@@ -123,5 +123,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   setAlert,
   emptyAlert,
-  artistRegister,
-})(ArtistRegister)
+  enterpriseRegister,
+})(EnterpriseRegister)

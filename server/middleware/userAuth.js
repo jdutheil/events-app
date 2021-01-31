@@ -11,15 +11,17 @@ module.exports = function (req, res, next) {
 
   if (!token) {
     // 401 : Unauthorized
-    return res.status(401).json({ msg: 'No token, authorization denied' })
+    return res.status(401).json({ msg: 'Pas de token, accès refusé' })
   }
 
   // Verify token
   try {
     const decoded = jwt.verify(token, config.get('jwtSecret'))
-    req.artist = decoded.artist
+    req.user = decoded.user
+    console.log('user')
+    console.log(req.user)
     next()
   } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' })
+    res.status(401).json({ msg: "Le token n'est pas valide" })
   }
 }

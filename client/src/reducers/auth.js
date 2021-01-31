@@ -1,6 +1,8 @@
 import {
   ARTIST_REGISTER_SUCCESS,
   ARTIST_REGISTER_FAIL,
+  ENTERPRISE_REGISTER_SUCCESS,
+  ENTERPRISE_REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
@@ -28,6 +30,7 @@ const authReducer = (state = initialState, action) => {
       }
     case AUTH_ERROR:
     case ARTIST_REGISTER_FAIL:
+    case ENTERPRISE_REGISTER_FAIL:
     case LOGIN_FAIL:
     case LOGOUT:
       localStorage.removeItem('token')
@@ -39,6 +42,7 @@ const authReducer = (state = initialState, action) => {
         loading: false,
       }
     case ARTIST_REGISTER_SUCCESS:
+    case ENTERPRISE_REGISTER_SUCCESS:
       localStorage.setItem('token', payload.token)
 
       return {

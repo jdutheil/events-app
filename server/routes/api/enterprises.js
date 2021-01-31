@@ -6,10 +6,10 @@ const bcrypt = require('bcryptjs')
 const config = require('config')
 
 // Models
-const Artist = require('../../models/Artist')
+const Enterprise = require('../../models/Enterprise')
 
-// @route  POST api/artists
-// @desc   Register artist
+// @route  POST api/enterprises
+// @desc   Register enterprise
 // @access Public
 router.post(
   '/',
@@ -31,8 +31,8 @@ router.post(
 
     try {
       // Check if user exists
-      let artist = await Artist.findOne({ email })
-      if (artist) {
+      let enterprise = await Enterprise.findOne({ email })
+      if (enterprise) {
         return res.status(400).json({
           errors: [
             {
@@ -43,22 +43,22 @@ router.post(
         })
       }
 
-      artist = new Artist({
+      enterprise = new Enterprise({
         email,
         password,
       })
 
       // Encrypt password with bcrypt
       const salt = await bcrypt.genSalt(10)
-      artist.password = await bcrypt.hash(password, salt)
+      enterprise.password = await bcrypt.hash(password, salt)
 
       // Save to DB
-      await artist.save()
+      await enterprise.save()
 
       // Return jsonwebtoken
       const payload = {
         user: {
-          id: artist.id,
+          id: enterprise.id,
         },
       }
 
@@ -67,8 +67,9 @@ router.post(
         config.get('jwtSecret'),
         { expiresIn: 3600000 },
         (err, token) => {
-          console.log({ err, token })
+          console.log('err,token')
           if (err) throw err
+          console.log('res.json')
           res.json({ token })
         }
       )
