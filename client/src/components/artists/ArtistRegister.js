@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { setAlert, emptyAlert } from '../../actions/alert'
@@ -15,7 +15,12 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const ArtistRegister = ({ setAlert, emptyAlert, artistRegister }) => {
+const ArtistRegister = ({
+  setAlert,
+  emptyAlert,
+  artistRegister,
+  isAuthenticated,
+}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,6 +42,10 @@ const ArtistRegister = ({ setAlert, emptyAlert, artistRegister }) => {
     } else {
       artistRegister({ email, password })
     }
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />
   }
 
   return (
@@ -102,8 +111,15 @@ ArtistRegister.propTypes = {
   setAlert: PropTypes.func.isRequired,
   emptyAlert: PropTypes.func.isRequired,
   artistRegister: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 }
 
-export default connect(null, { setAlert, emptyAlert, artistRegister })(
-  ArtistRegister
-)
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+
+export default connect(mapStateToProps, {
+  setAlert,
+  emptyAlert,
+  artistRegister,
+})(ArtistRegister)

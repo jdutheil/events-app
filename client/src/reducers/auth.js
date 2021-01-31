@@ -1,4 +1,12 @@
-import { ARTIST_REGISTER_SUCCESS, ARTIST_REGISTER_FAIL } from '../actions/types'
+import {
+  ARTIST_REGISTER_SUCCESS,
+  ARTIST_REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+} from '../actions/types'
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -11,6 +19,25 @@ const authReducer = (state = initialState, action) => {
   const { type, payload } = action
 
   switch (type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: payload,
+      }
+    case AUTH_ERROR:
+    case ARTIST_REGISTER_FAIL:
+    case LOGIN_FAIL:
+    case LOGOUT:
+      localStorage.removeItem('token')
+
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+      }
     case ARTIST_REGISTER_SUCCESS:
       localStorage.setItem('token', payload.token)
 
@@ -20,13 +47,13 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         loading: false,
       }
-    case ARTIST_REGISTER_FAIL:
-      localStorage.removeItem('token')
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', payload.token)
 
       return {
         ...state,
-        token: null,
-        isAuthenticated: false,
+        ...payload,
+        isAuthenticated: true,
         loading: false,
       }
     default:

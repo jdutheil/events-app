@@ -1,12 +1,34 @@
+import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { logout } from '../actions/auth'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 
-const Header = ({ title }) => {
+const Header = ({ title, logout, auth: { isAuthenticated, loading } }) => {
+  const authLinks = (
+    <Button variant='outline-dark' onClick={logout}>
+      Déconnexion
+    </Button>
+  )
+
+  const guestLinks = (
+    <>
+      <Link to='/artist/register'>
+        <Button variant='outline-dark'>Inscription artistes</Button>
+      </Link>
+
+      <Link to='/login'>
+        <Button variant='outline-primary'>Connexion</Button>
+      </Link>
+    </>
+  )
+
   return (
     <header>
       <Navbar bg='light' expand='lg' fixed='top'>
@@ -23,13 +45,9 @@ const Header = ({ title }) => {
             <Nav.Link href='#'>Contact</Nav.Link>
           </Nav>
 
-          <Link to='/artist/register'>
-            <Button variant='outline-dark'>Inscription artistes</Button>
-          </Link>
-
-          <Link to='/login'>
-            <Button variant='outline-primary'>Connexion</Button>
-          </Link>
+          {!loading && (
+            <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </header>
@@ -38,6 +56,12 @@ const Header = ({ title }) => {
 
 Header.propTypes = {
   tilte: PropTypes.string,
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 }
 
-export default Header
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+})
+
+export default connect(mapStateToProps, { logout })(Header)

@@ -7,3 +7,8 @@ export const EMPTY_ALERT = 'EMPTY_ALERT'
 // Auth - Register
 export const ARTIST_REGISTER_SUCCESS = 'ARTIST_REGISTER_SUCCESS'
 export const ARTIST_REGISTER_FAIL = 'ARTIST_REGISTER_FAIL'
+export const USER_LOADED = 'USER_LOADED'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const LOGOUT = 'LOGOUT'
