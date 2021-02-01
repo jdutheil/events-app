@@ -1,25 +1,20 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import PageTitle from '../layout/titles/PageTitle'
+import SectionTitle from '../layout/titles/SectionTitle'
 
-const displayUserType = (user) => {
-  if (user) {
-    if (user.type === 'Artist') {
-      return <p>Artiste : {user.email}</p>
-    } else if (user.type === 'Enterprise') {
-      return <p>Entreprise : {user.email}</p>
-    }
+import ArtistDashboardIndex from '../dashboard/ArtistDashboardIndex'
+
+const displayIndex = (user) => {
+  if (user.type === 'Artist') {
+    return <ArtistDashboardIndex />
+  } else if (user.type === 'Enterprise') {
+    return <p>EnterpriseDashboardIndex à créer</p>
   }
 }
 
 const Dashboard = ({ auth: { user } }) => {
-  return (
-    <>
-      <PageTitle>Tableau de bord</PageTitle>
-      {displayUserType(user)}
-    </>
-  )
+  return <>{displayIndex(user)}</>
 }
 
 Dashboard.propTypes = {

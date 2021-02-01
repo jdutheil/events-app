@@ -11,6 +11,27 @@ const ArtistSchema = new mongoose.Schema({
   lastname: {
     type: String,
   },
+
+  address: {
+    type: String,
+  },
+
+  zipcode: {
+    type: String,
+  },
+
+  city: {
+    type: String,
+  },
+
+  phone: {
+    type: String,
+  },
+
+  isAnonymous: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 module.exports = Artist = User.discriminator('Artist', ArtistSchema, options)

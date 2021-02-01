@@ -6,6 +6,7 @@ import {
   ARTIST_REGISTER_ROUTE,
   ENTERPRISE_REGISTER_ROUTE,
   LOGIN_ROUTE,
+  ARTIST_UPDATE_INFOS_ROUTE,
 } from './routes'
 
 import { Provider } from 'react-redux'
@@ -13,14 +14,18 @@ import store from './store'
 
 import Container from 'react-bootstrap/Container'
 
-import Header from './components/Header'
+import Header from './components/layout/Header'
 import Alert from './components/layout/Alert'
 
 import Home from './components/home/Home'
 import ArtistRegister from './components/artists/ArtistRegister'
 import EnterpriseRegister from './components/enterprises/EnterpriseRegister'
 import Login from './components/auth/Login'
+
 import Dashboard from './components/dashboard/Dashboard'
+import DashboardLayout from './components/layout/DashboardLayout'
+
+import ArtistInfosForm from './components/artists/ArtistInfosForm'
 
 import setAuthToken from './utils/setAuthToken'
 import { loadUser, loadGoogleUser } from './actions/auth'
@@ -60,7 +65,15 @@ const App = () => {
                 component={EnterpriseRegister}
               />
               <Route exact path={LOGIN_ROUTE} component={Login} />
-              <Route exact path={DASHBOARD_ROUTE} component={Dashboard} />
+
+              <DashboardLayout>
+                <Route exact path={DASHBOARD_ROUTE} component={Dashboard} />
+                <Route
+                  exact
+                  path={ARTIST_UPDATE_INFOS_ROUTE}
+                  component={ArtistInfosForm}
+                />
+              </DashboardLayout>
             </Switch>
           </Container>
         </>

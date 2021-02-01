@@ -4,17 +4,25 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { logout } from '../actions/auth'
+import { logout } from '../../actions/auth'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 
+import { DASHBOARD_ROUTE } from '../../routes'
+
 const Header = ({ title, logout, auth: { isAuthenticated, loading } }) => {
   const authLinks = (
-    <Button variant='outline-dark' onClick={logout}>
-      Déconnexion
-    </Button>
+    <>
+      <Link to={DASHBOARD_ROUTE}>
+        <Button variant='outline-dark'>Tableau de bord</Button>
+      </Link>
+
+      <Button variant='outline-dark' onClick={logout}>
+        Déconnexion
+      </Button>
+    </>
   )
 
   const guestLinks = (
